@@ -22,6 +22,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "GLCD.h"
+#include "AsciiLib.h"
 #include "lpc177x_8x_gpio.h"
 #include "lpc177x_8x_clkpwr.h"
 #include "lpc177x_8x_pinsel.h"

@@ -37,9 +37,9 @@
 #define SDRAM_SIZE	        0x01000000   /* 16M 128Mbit 1024*1024*16 byte */                         
 #define MHZ           		*1000000
 
-#define SYS_FREQ  			120MHZ
+#define SYS_FREQ  			120
 
-#if   SYS_FREQ == (120MHZ)
+#if   SYS_FREQ == (120)
 #define SDRAM_PERIOD          8.33  // 96MHz
 #elif     SYS_FREQ == (96MHZ)
 #define SDRAM_PERIOD          10.4  // 96MHz

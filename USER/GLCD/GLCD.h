@@ -24,7 +24,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "lpc_types.h"
-#include "SDRAM_K4S561632C_32M_16BIT.h"
+//#include "SDRAM_K4S561632C_32M_16BIT.h"
+#include "SDRAM_K4M563233G_32M_32BIT.h"
 
 /* Private define ------------------------------------------------------------*/
 #define LCD_VRAM_BASE_ADDR 	    ((uint32_t)SDRAM_BASE_ADDR + 0x00100000)
@@ -37,7 +38,7 @@
 #define LCD_7_0_TFT			3   /* 7 inch TFT LCD */
 
 /* what LCD type do you want to use */
-#define USED_LCD            LCD_4_3_TFT  
+#define USED_LCD            LCD_4_3_TFT
 
 #if (USED_LCD == LCD_4_3_TFT)
 #define GLCD_X_SIZE        480	         /* LCD Horizontal length */
@@ -148,6 +149,7 @@ void GLCD_Copy_Cursor (const uint32_t *pCursor, int cursor, int size);
 void GLCD_Init (void);
 void GLCD_Clear(uint16_t color);
 void GLCD_SetPixel_16bpp (uint16_t Xpos, uint16_t Ypos, uint16_t color);
+void GUI_Text(uint16_t Xpos, uint16_t Ypos, uint8_t *str, uint16_t Color, uint16_t bkColor);
 void GLCD_DrawLine( uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1 , uint16_t color );
 
 #endif
