@@ -21,6 +21,7 @@
 *********************************************************************************************************/
 
 /* Includes ------------------------------------------------------------------*/
+#include "system_LPC177x_8x.h"
 #include "GLCD.h"
 #include "AsciiLib.h"
 #include "lpc_types.h"
@@ -31,6 +32,8 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void USART_Configuration(void);
+void welcomeMessage(void);
+void checkDRAM(void);
 
 /*******************************************************************************
 * Function Name  : Delay
@@ -55,38 +58,38 @@ void  Delay (uint32_t nCount)
 *******************************************************************************/
 int main(void)
 {
+	
 	USART_Configuration();
-
-	UARTPuts_( UART_0, "=================================================================" );
-	UARTPuts_( UART_0, "*                                                               *" );
-	UARTPuts_( UART_0, "*   Thank you for using HY-LPC1788-SDK Development Board V^_^   *" );
-	UARTPuts_( UART_0, "*                                                               *" );
-	UARTPuts_( UART_0, "=================================================================" );
+	welcomeMessage();
+	//extern uint32_t SystemCoreClock;
+	SystemCoreClockUpdate ();
+	UARTPutDec32(UART_0, SystemCoreClock);
+	//UARTPutHex32 (UART_0, SystemCoreClock);
+	UARTPuts_( UART_0, " MHz" );
 
     SDRAM_32M_32BIT_Init();	  
     GLCD_Init();
-
+	while( 1 )
+	{
 	GLCD_Clear(Black);
+	Delay(0xffffff);
+
+	GLCD_Clear(Red);
+	Delay(0xffffff);
+
+	GLCD_Clear(Blue);
+	Delay(0xffffff);
+
+	GLCD_Clear(Green);
 	Delay(0xffffff);
 
 	GLCD_Clear(White);
 	Delay(0xffffff);
-
-	GLCD_Clear(Black);
-	Delay(0xffffff);
-
-	GLCD_Clear(Black);
-	Delay(0xffffff);
-
-	GLCD_Clear(Black);
-	Delay(0xffffff);
 	 
 	GUI_Text( ( GLCD_X_SIZE - 120 ) / 2, GLCD_Y_SIZE / 2 - 8, "HY-LPC1788-Core", White, Blue);
 	GUI_Text( ( GLCD_X_SIZE - 136 ) / 2, GLCD_Y_SIZE / 2 + 8, "Development Board", White, Blue);
+	Delay(0xffffff);
 	 
-	while( 1 )
-	{ 	
-
 	}
 }
 /*******************************************************************************
@@ -125,6 +128,28 @@ void USART_Configuration(void)
 	/* Enable UART Transmit */
 	UART_TxCmd(UART_0, ENABLE);
 
+}
+
+void welcomeMessage(void)
+{
+	UARTPuts_( UART_0, "=================================================================" );
+	UARTPuts_( UART_0, "*                                                               *" );
+	UARTPuts_( UART_0, "*   Thank you for using HY-LPC1788-SDK Development Board V^_^   *" );
+	UARTPuts_( UART_0, "*                                                               *" );
+	UARTPuts_( UART_0, "=================================================================" );
+}
+
+// print the content of LCD_VRAM_BASE_ADDR
+void checkDRAM(void)
+{
+	#define XPOS 100
+	#define YPOS 100
+	
+	volatile uint16_t *pLCDbuf = (uint16_t *)LCD_VRAM_BASE_ADDR;  /* LCD buffer start address */
+	UARTPutHex16 (UART_0, pLCDbuf[0]);
+	UARTPuts( UART_0, " ");	
+	UARTPutHex16 (UART_0, pLCDbuf[ YPOS * GLCD_X_SIZE + XPOS ]);
+	UARTPuts( UART_0, "\n\r");
 }
 /*********************************************************************************************************
       END FILE

@@ -45,7 +45,7 @@
 #define GLCD_Y_SIZE        272		     /* LCD Vertical length */
 #define PPL                GLCD_X_SIZE   /* Pixels per line */
 
-#define HSW                20             /* HSYNC pulse width */
+#define HSW                35             /* HSYNC pulse width */
 #define HFP                2             /* Horizontal front porch */
 #define HBP                2            /* Horizontal back porch */
 
@@ -148,7 +148,7 @@ void GLCD_Move_Cursor(int x, int y);
 void GLCD_Copy_Cursor (const uint32_t *pCursor, int cursor, int size);
 void GLCD_Init (void);
 void GLCD_Clear(uint16_t color);
-void GLCD_SetPixel_16bpp (uint16_t Xpos, uint16_t Ypos, uint16_t color);
+void GLCD_SetPixel_16bpp (uint16_t Xpos, uint16_t Ypos, uint16_t color) __attribute__((always_inline));
 void GUI_Text(uint16_t Xpos, uint16_t Ypos, uint8_t *str, uint16_t Color, uint16_t bkColor);
 void GLCD_DrawLine( uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1 , uint16_t color );
 
